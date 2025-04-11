@@ -7,6 +7,7 @@ import Home from './components/Home'
 import ContactUs from './components/ContactUs'
 import AboutUs from './components/AboutUs'
 import Dashboard from './components/Dashboard'
+import AdminPanel from './components/AdminPanel'
 
 
 import { Routes, Route, useLocation } from 'react-router-dom'
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/login' element={<Login />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/dashboard/activate' element={<ActivatePage />}/>
+        <Route path='/dashboard/admin' element={<AdminPanel />}/>
 
       </Routes>
 

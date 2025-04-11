@@ -34,7 +34,6 @@ const Dashboard = () => {
       })
     })
     .catch(() => {
-      sessionStorage.removeItem("token");
       navigate("/login");
     });
   }, []);

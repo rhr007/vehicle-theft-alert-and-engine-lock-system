@@ -42,6 +42,9 @@ const Login = () => {
           if(!response.data.is_active){
             navigate('/dashboard/activate')
           }
+          else if(response.data.is_admin){
+            navigate('/dashboard/admin')
+          }
           else{
             navigate('/dashboard')
 

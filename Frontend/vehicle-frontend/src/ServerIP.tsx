@@ -1,6 +1,6 @@
 
 const ServerIP = () => {
-    const IP = "192.168.89.168";
+    const IP = "172.18.64.1";
 
     return `http://${IP}:8000`
 }

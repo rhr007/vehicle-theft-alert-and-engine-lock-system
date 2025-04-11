@@ -34,10 +34,10 @@ const ActivatePage = () => {
       setUser(res.data.name);
       sessionStorage.setItem('email', res.data.name)
       setUserID(res.data.id);
+      console.log(userID);
 
     })
     .catch(() => {
-      sessionStorage.removeItem("token");
       navigate("/login");
     });
   }, []);
