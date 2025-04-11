@@ -40,3 +40,26 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         raise credentials_exception
     
     return email
+
+def is_admin(token = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("email")
+        is_admin = payload.get("is_admin")
+
+        if not email:
+            raise credentials_exception
+        
+        if not is_admin:
+            raise credentials_exception
+
+
+    except InvalidTokenError:
+        raise credentials_exception
+    
+    return email

@@ -49,7 +49,7 @@ def send_otp(receiver, otp_to_send):
     import smtplib
     sender = Email_Secrets.sender_email()
     subject = "OTP From Theft Alert System."
-    message = f"Your OTP is {otp_to_send}, it will expire in 2 minutes.\nThank you,\nTeam Theft Alert System."
+    message = f"Your OTP is {otp_to_send}, it will expire in 10 minutes.\nThank you,\nTeam Theft Alert System."
 
     text = f"Subject: {subject}\n\n{message}"
 

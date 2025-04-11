@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from sqlmodel import select
 
 
-import schemas, models, hashing
+import schemas, models, hashing, JWT_Token
 
 from database import get_db
 
@@ -35,9 +35,15 @@ def add_new_user(userinfo: schemas.UserBase, db = Depends(get_db)):
     return JSONResponse(status_code=status.HTTP_201_CREATED, content={'msg': 'Created'})
 
 
-@router.delete('/user')
-def romove_user(user_email: schemas.UserEmailBase, db = Depends(get_db)):
-    check_user = db.exec(select(models.User).where(models.User.email == user_email.email)).first()
+@router.get('/users')
+def all_users(email = Depends(JWT_Token.is_admin), db = Depends(get_db)):
+    users = db.exec(select(models.User).where(models.User.email != email)).all()
+    return users
+
+
+@router.delete('/user/{id}')
+def romove_user(id, db = Depends(get_db)):
+    check_user = db.exec(select(models.User).where(models.User.id == id)).first()
 
     if check_user:
         db.delete(check_user)
