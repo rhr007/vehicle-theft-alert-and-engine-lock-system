@@ -1,7 +1,30 @@
 import aboutusImage from '../images/aboutusImage.jpg'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import MapComponent from './MapComponent';
 
 const AboutUs = () => {
-  return (
+
+  const [location, setLocation] = useState({ city: '', region: '', country: '', lat: '', lon: '' });
+
+  useEffect(() => {
+    axios.get("https://ipinfo.io/json")
+      .then(res => {
+        const [lat, lon] = res.data.loc.split(","); // 'loc' gives 'latitude,longitude'
+  
+        setLocation({
+          city: res.data.city,
+          region: res.data.region,
+          country: res.data.country,
+          lat: lat,
+          lon: lon
+        });
+      })
+      .catch(err => console.log(err));
+  }, []);
+  
+  
+   return (
     <div className="min-h-screen bg-white py-12 px-4 sm:px-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         
@@ -24,6 +47,18 @@ const AboutUs = () => {
             className="rounded-2xl shadow-lg w-full h-auto"
           />
         </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-lg font-bold mb-2">Your Location</h2>
+              <p>City: {location.city}</p>
+              <p>Region: {location.region}</p>
+              <p>Country: {location.country}</p>
+              <p>Latitude & Longitude: {location.lat}</p>
+            </div>
+
+
+              <MapComponent 
+              />
+
       </div>
     </div>
   );
